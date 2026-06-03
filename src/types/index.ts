@@ -17,6 +17,7 @@ export interface RefineTextPayload {
 export interface CoverLetterPayload {
   jobDescription: string;
   resumeText: string;
+  additionalInfo?: string;
 }
 
 export type RecipientType = 'boss' | 'professor' | 'client';

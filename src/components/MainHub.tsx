@@ -5,10 +5,14 @@ import { AppMode, AiResponse, RecipientType, FormalityLevel } from '@/types';
 import ModeSwitcher from './ModeSwitcher';
 import SplitWorkspace from './SplitWorkspace';
 import ExtraInsight from './ExtraInsight';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '@/contexts/AuthContext';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
 export default function MainHub() {
+  const { user } = useAuth();
   const [mode, setMode] = useState<AppMode>('refiner');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AiResponse | null>(null);
@@ -37,6 +41,16 @@ export default function MainHub() {
       });
       const data: AiResponse = await res.json();
       setResult(data);
+
+      if (data.status === 'success' && user) {
+        await addDoc(collection(db, 'history'), {
+          userId: user.uid,
+          mode: 'refiner',
+          inputText: rawText,
+          outputText: data.convertedText,
+          createdAt: serverTimestamp(),
+        });
+      }
     } catch (err) {
       console.error('Refine error:', err);
       setResult({
@@ -60,10 +74,20 @@ export default function MainHub() {
       const res = await fetch(`${BACKEND_URL}/ai/generate-cover-letter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ jobDescription, resumeText }),
+        body: JSON.stringify({ jobDescription, resumeText, additionalInfo: rawText }),
       });
       const data: AiResponse = await res.json();
       setResult(data);
+
+      if (data.status === 'success' && user) {
+        await addDoc(collection(db, 'history'), {
+          userId: user.uid,
+          mode: 'applicant',
+          inputText: `Job: ${jobDescription.substring(0, 50)}... | Resume: ${resumeFileName || 'Uploaded Resume'}`,
+          outputText: data.convertedText,
+          createdAt: serverTimestamp(),
+        });
+      }
     } catch (err) {
       console.error('Cover letter error:', err);
       setResult({
