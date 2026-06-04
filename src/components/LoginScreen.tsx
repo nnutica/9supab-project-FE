@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import Logo from './Logo';
 
 export default function LoginScreen() {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
@@ -51,11 +52,8 @@ export default function LoginScreen() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] p-4">
       <div className="glass-card p-10 max-w-md w-full text-center animate-slide-up">
         {/* Logo */}
-        <div className="mb-6">
-          <h1 className="text-5xl font-bold text-white mb-2">๙สุภาพ</h1>
-          <p className="text-accent text-sm tracking-widest uppercase">
-            AI Professional Communication Assistant
-          </p>
+        <div className="flex justify-center mb-6">
+          <Logo width={280} height={84} className="w-full max-w-[280px] h-auto" />
         </div>
 
         {/* Divider */}

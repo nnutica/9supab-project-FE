@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
+import Logo from './Logo';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -10,11 +11,8 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-[#1E293B]/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left - Logo */}
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-white tracking-tight">๙สุภาพ</h1>
-          <span className="hidden sm:block text-xs text-accent/80 border-l border-white/20 pl-3">
-            AI Professional Communication Assistant
-          </span>
+        <div className="flex items-center">
+          <Logo width={160} height={48} className="h-12 w-auto" />
         </div>
 
         {/* Right - User Profile */}
