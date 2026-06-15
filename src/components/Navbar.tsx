@@ -8,7 +8,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#1E293B]/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
+    <nav className="sticky top-0 z-50 bg-ps-surface-dark border-b border-white/5 shadow-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left - Logo */}
         <div className="flex items-center">

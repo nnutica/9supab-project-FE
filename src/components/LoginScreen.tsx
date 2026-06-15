@@ -49,50 +49,45 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] p-4">
-      <div className="glass-card p-10 max-w-md w-full text-center animate-slide-up">
+    <div className="min-h-screen flex items-center justify-center bg-ps-canvas-dark p-4 font-sans">
+      <div className="bg-ps-surface-dark p-10 max-w-md w-full rounded-md animate-slide-up border border-white/5 shadow-2xl">
         {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <Logo width={280} height={84} className="w-full max-w-[280px] h-auto" />
+        <div className="flex justify-center mb-10">
+          <Logo width={200} height={60} className="w-full max-w-[200px] h-auto" />
         </div>
 
-        {/* Divider */}
-        <div className="w-16 h-0.5 bg-accent/40 mx-auto mb-6"></div>
-
         {/* Form Title */}
-        <h2 className="text-xl font-semibold text-white mb-4">
+        <h2 className="text-[28px] font-light text-white mb-8 tracking-[0.1px]">
           {isSignUp ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ'}
         </h2>
 
         {/* Error Alert */}
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-red-500/20 border border-red-500/30 text-red-200 text-sm text-left">
-            ⚠️ {error}
+          <div className="mb-6 p-3 rounded-sm bg-[#c81b3a]/10 border border-[#c81b3a]/30 text-[#c81b3a] text-sm text-left">
+            {error}
           </div>
         )}
 
         {/* Email Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 text-left mb-4">
-          <div>
-            <label className="label text-xs font-semibold text-white/70 uppercase">อีเมล</label>
+        <form onSubmit={handleSubmit} className="space-y-6 text-left mb-6">
+          <div className="space-y-2">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@test.com"
-              className="input input-bordered w-full bg-slate-900/50 text-white border-white/10 focus:border-accent focus:ring-1 focus:ring-accent"
+              placeholder="Email Address"
+              className="w-full bg-white text-black rounded-sm px-4 py-3 h-12 text-[18px] focus:outline-none focus:ring-2 focus:ring-ps-blue placeholder-black/60"
               required
             />
           </div>
 
-          <div>
-            <label className="label text-xs font-semibold text-white/70 uppercase">รหัสผ่าน</label>
+          <div className="space-y-2">
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••"
-              className="input input-bordered w-full bg-slate-900/50 text-white border-white/10 focus:border-accent focus:ring-1 focus:ring-accent"
+              placeholder="Password"
+              className="w-full bg-white text-black rounded-sm px-4 py-3 h-12 text-[18px] focus:outline-none focus:ring-2 focus:ring-ps-blue placeholder-black/60"
               required
             />
           </div>
@@ -100,43 +95,43 @@ export default function LoginScreen() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-accent-glow w-full mt-2 text-md font-semibold py-3 flex items-center justify-center"
+            className="w-full bg-ps-blue hover:bg-ps-blue-pressed text-white rounded-full h-12 px-7 font-bold text-[18px] tracking-[0.45px] transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <span className="loading loading-spinner loading-sm"></span>
             ) : isSignUp ? (
-              'สมัครสมาชิกด้วยอีเมล'
+              'Sign Up'
             ) : (
-              'เข้าสู่ระบบด้วยอีเมล'
+              'Sign In'
             )}
           </button>
         </form>
 
         {/* Toggle Mode Link */}
-        <div className="text-sm mb-6">
+        <div className="text-left mb-8">
           <button
+            type="button"
             onClick={() => {
               setIsSignUp(!isSignUp);
               setError(null);
             }}
-            className="text-accent hover:underline focus:outline-none"
+            className="text-ps-link-dark hover:underline text-[18px] focus:outline-none"
           >
-            {isSignUp ? 'มีบัญชีอยู่แล้ว? เข้าสู่ระบบ' : 'ยังไม่มีบัญชี? สมัครสมาชิก'}
+            {isSignUp ? 'Already have an account? Sign In' : 'Create New Account'}
           </button>
         </div>
 
-        {/* Divider with Text */}
-        <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-white/10"></div>
-          <span className="mx-4 text-white/40 text-xs uppercase">หรือ</span>
-          <div className="flex-grow border-t border-white/10"></div>
+        {/* Divider */}
+        <div className="flex items-center my-8">
+          <div className="flex-grow border-t border-white/20"></div>
         </div>
 
         {/* Google Sign-in Button */}
         <button
+          type="button"
           onClick={signInWithGoogle}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-3 text-white border border-white/10 bg-white/5 hover:bg-white/10 py-3 rounded-lg font-medium transition-all shadow-md active:scale-95 focus:outline-none"
+          className="w-full flex items-center justify-center gap-3 bg-transparent text-white border border-white/20 rounded-full h-12 px-7 font-bold text-[18px] tracking-[0.45px] hover:bg-white/5 transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -156,13 +151,8 @@ export default function LoginScreen() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          เข้าสู่ระบบด้วย Google
+          Sign In with Google
         </button>
-
-        {/* Footer */}
-        <p className="text-white/30 text-xs mt-8">
-          Powered by Google Gemini AI
-        </p>
       </div>
     </div>
   );
