@@ -9,6 +9,12 @@ const config: Config = {
         'navy-dark': '#0F172A',
         'navy-light': '#334155',
         surface: '#F8FAFC',
+        'ps-blue': '#0070d1',
+        'ps-blue-pressed': '#0064b7',
+        'ps-canvas-dark': '#000000',
+        'ps-surface-dark': '#121314',
+        'ps-surface-card': '#181818',
+        'ps-link-dark': '#53b1ff',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'var(--font-noto-thai)', 'sans-serif'],

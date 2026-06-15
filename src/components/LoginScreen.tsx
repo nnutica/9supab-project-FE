@@ -1,34 +1,137 @@
 'use client';
 
+import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import Logo from './Logo';
 
 export default function LoginScreen() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      setError('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
+    }
+    if (password.length < 6) {
+      setError('รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร');
+      return;
+    }
+
+    setError(null);
+    setLoading(true);
+
+    try {
+      if (isSignUp) {
+        await signUpWithEmail(email, password);
+      } else {
+        await signInWithEmail(email, password);
+      }
+    } catch (err: any) {
+      console.error(err);
+      if (err.code === 'auth/email-already-in-use') {
+        setError('อีเมลนี้ถูกใช้งานแล้ว');
+      } else if (err.code === 'auth/invalid-credential') {
+        setError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('รูปแบบอีเมลไม่ถูกต้อง');
+      } else {
+        setError(err.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] p-4">
-      <div className="glass-card p-10 max-w-md w-full text-center animate-slide-up">
+    <div className="min-h-screen flex items-center justify-center bg-ps-canvas-dark p-4 font-sans">
+      <div className="bg-ps-surface-dark p-10 max-w-md w-full rounded-md animate-slide-up border border-white/5 shadow-2xl">
         {/* Logo */}
-        <div className="mb-8">
-          <h1 className="text-5xl font-bold text-white mb-2">๙สุภาพ</h1>
-          <p className="text-accent text-sm tracking-widest uppercase">
-            AI Professional Communication Assistant
-          </p>
+        <div className="flex justify-center mb-10">
+          <Logo width={200} height={60} className="w-full max-w-[200px] h-auto" />
+        </div>
+
+        {/* Form Title */}
+        <h2 className="text-[28px] font-light text-white mb-8 tracking-[0.1px]">
+          {isSignUp ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ'}
+        </h2>
+
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-6 p-3 rounded-sm bg-[#c81b3a]/10 border border-[#c81b3a]/30 text-[#c81b3a] text-sm text-left">
+            {error}
+          </div>
+        )}
+
+        {/* Email Form */}
+        <form onSubmit={handleSubmit} className="space-y-6 text-left mb-6">
+          <div className="space-y-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email Address"
+              className="w-full bg-white text-black rounded-sm px-4 py-3 h-12 text-[18px] focus:outline-none focus:ring-2 focus:ring-ps-blue placeholder-black/60"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full bg-white text-black rounded-sm px-4 py-3 h-12 text-[18px] focus:outline-none focus:ring-2 focus:ring-ps-blue placeholder-black/60"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-ps-blue hover:bg-ps-blue-pressed text-white rounded-full h-12 px-7 font-bold text-[18px] tracking-[0.45px] transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : isSignUp ? (
+              'Sign Up'
+            ) : (
+              'Sign In'
+            )}
+          </button>
+        </form>
+
+        {/* Toggle Mode Link */}
+        <div className="text-left mb-8">
+          <button
+            type="button"
+            onClick={() => {
+              setIsSignUp(!isSignUp);
+              setError(null);
+            }}
+            className="text-ps-link-dark hover:underline text-[18px] focus:outline-none"
+          >
+            {isSignUp ? 'Already have an account? Sign In' : 'Create New Account'}
+          </button>
         </div>
 
         {/* Divider */}
-        <div className="w-16 h-0.5 bg-accent/40 mx-auto mb-8"></div>
-
-        {/* Description */}
-        <p className="text-white/70 text-sm mb-8 leading-relaxed">
-          แปลงข้อความธรรมดาของคุณ<br />
-          ให้กลายเป็นภาษาทางการ ระดับมืออาชีพ
-        </p>
+        <div className="flex items-center my-8">
+          <div className="flex-grow border-t border-white/20"></div>
+        </div>
 
         {/* Google Sign-in Button */}
         <button
+          type="button"
           onClick={signInWithGoogle}
-          className="btn-accent-glow w-full flex items-center justify-center gap-3 text-lg"
+          disabled={loading}
+          className="w-full flex items-center justify-center gap-3 bg-transparent text-white border border-white/20 rounded-full h-12 px-7 font-bold text-[18px] tracking-[0.45px] hover:bg-white/5 transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -48,13 +151,8 @@ export default function LoginScreen() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          เข้าสู่ระบบด้วย Google
+          Sign In with Google
         </button>
-
-        {/* Footer */}
-        <p className="text-white/30 text-xs mt-10">
-          Powered by Google Gemini AI
-        </p>
       </div>
     </div>
   );

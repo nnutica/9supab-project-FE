@@ -21,18 +21,18 @@ export default function OutputBox({ loading, result }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">
-        <label className="text-sm font-medium text-base-content/70">✅ ผลลัพธ์</label>
+        <label className="text-sm font-light text-white/70">✅ ผลลัพธ์</label>
         {result?.convertedText && (
           <button
             onClick={handleCopy}
-            className="btn btn-ghost btn-xs gap-1 text-accent hover:bg-accent/10 transition-colors"
+            className="text-ps-link-dark hover:text-white transition-colors text-sm focus:outline-none"
           >
             {copied ? '✓ คัดลอกแล้ว' : '📋 Copy'}
           </button>
         )}
       </div>
 
-      <div className="relative h-64 rounded-xl border-2 border-base-300 bg-white p-4 overflow-auto">
+      <div className="relative h-64 rounded-sm border border-white/20 bg-ps-surface-card p-4 overflow-auto">
         {loading ? (
           /* Skeleton Loading Animation */
           <div className="space-y-3">
@@ -45,11 +45,11 @@ export default function OutputBox({ loading, result }: Props) {
             <div className="skeleton-supab h-4 w-2/6"></div>
           </div>
         ) : result ? (
-          <p className="text-base-content leading-relaxed whitespace-pre-wrap animate-fade-in">
+          <p className="text-white leading-relaxed whitespace-pre-wrap animate-fade-in font-light">
             {result.convertedText}
           </p>
         ) : (
-          <p className="text-base-content/30 italic text-center mt-20">
+          <p className="text-white/30 italic text-center mt-20 font-light">
             ผลลัพธ์จะแสดงที่นี่ หลังจากท่านกด &quot;เรียกนายสุภาพ&quot;
           </p>
         )}

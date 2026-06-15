@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <defs>
+    <linearGradient id="supabGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="60%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+    <linearGradient id="sparkleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+
+  <!-- ICON: ดีไซน์เลข ๙ สไตล์มินิมอลโมเดิร์น จัดกึ่งกลาง 128x128 -->
+  <g transform="translate(-5, 12)">
+    <circle cx="45" cy="55" r="14" fill="none" stroke="url(#supabGradient)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 45 41 
+             C 45 20, 75 15, 75 38 
+             C 75 55, 55 75, 85 85 
+             C 100 90, 105 70, 105 50" 
+          fill="none" 
+          stroke="url(#supabGradient)" 
+          stroke-width="8" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    <path d="M 105 25 Q 112 25 112 18 Q 112 25 119 25 Q 112 25 112 32 Q 112 25 105 25 Z" fill="url(#sparkleGradient)" />
+    <path d="M 118 42 Q 122 42 122 38 Q 122 42 126 42 Q 122 42 122 46 Q 122 42 118 42 Z" fill="url(#sparkleGradient)" />
+  </g>
+</svg>

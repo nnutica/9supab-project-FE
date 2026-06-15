@@ -14,7 +14,7 @@ const notoSansThai = Noto_Sans_Thai({
 });
 
 export const metadata: Metadata = {
-  title: '๙สุภาพ | AI Professional Communication Assistant',
+  title: '9Supab | AI Refiner & Career Assistant',
   description: 'แปลงข้อความธรรมดาให้กลายเป็นภาษาทางการระดับมืออาชีพ พร้อมระบบสร้าง Cover Letter อัจฉริยะ',
 };
 

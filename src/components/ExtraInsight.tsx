@@ -15,10 +15,10 @@ export default function ExtraInsight({ explanation, alternatives }: Props) {
       {/* Explanation Block */}
       {explanation && (
         <div className="glass-card p-4">
-          <h3 className="text-sm font-semibold text-primary mb-2 flex items-center gap-2">
+          <h3 className="text-sm font-light tracking-wide text-white mb-2 flex items-center gap-2">
             💡 คำอธิบายการปรับปรุง
           </h3>
-          <p className="text-sm text-base-content/70 leading-relaxed">{explanation}</p>
+          <p className="text-sm text-white/70 leading-relaxed font-light">{explanation}</p>
         </div>
       )}
 
@@ -27,12 +27,12 @@ export default function ExtraInsight({ explanation, alternatives }: Props) {
         <div className="glass-card overflow-hidden">
           <button
             onClick={() => setOpen(!open)}
-            className="w-full p-4 flex items-center justify-between hover:bg-base-200/30 transition-colors"
+            className="w-full p-4 flex items-center justify-between hover:bg-white/5 transition-colors focus:outline-none"
           >
-            <span className="text-sm font-semibold text-primary flex items-center gap-2">
+            <span className="text-sm font-light tracking-wide text-white flex items-center gap-2">
               🔄 ทางเลือกอื่น ({alternatives.length} แบบ)
             </span>
-            <span className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}>
+            <span className={`transition-transform duration-300 text-white/50 ${open ? 'rotate-180' : ''}`}>
               ▼
             </span>
           </button>
@@ -42,11 +42,11 @@ export default function ExtraInsight({ explanation, alternatives }: Props) {
               {alternatives.map((alt, i) => (
                 <div
                   key={i}
-                  className="p-3 rounded-lg bg-base-200/50 text-sm text-base-content/80 hover:bg-base-200 transition-colors cursor-pointer"
+                  className="p-3 rounded-sm bg-ps-surface-card border border-white/10 text-sm text-white/80 hover:border-ps-blue transition-colors cursor-pointer font-light"
                   onClick={() => navigator.clipboard.writeText(alt)}
                   title="คลิกเพื่อคัดลอก"
                 >
-                  <span className="text-xs text-accent mr-2">#{i + 1}</span>
+                  <span className="text-xs text-ps-link-dark mr-2">#{i + 1}</span>
                   {alt}
                 </div>
               ))}

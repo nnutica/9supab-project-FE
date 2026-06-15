@@ -77,13 +77,13 @@ export default function SplitWorkspace({
       {mode === 'refiner' ? (
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-base-content/70 mb-1.5">
+            <label className="block text-sm font-light text-white/70 mb-1.5">
               ผู้รับคือใคร
             </label>
             <select
               value={recipient}
               onChange={(e) => onRecipientChange(e.target.value as RecipientType)}
-              className="select select-bordered w-full bg-white"
+              className="w-full bg-ps-surface-card text-white border border-white/20 rounded-sm p-3 focus:outline-none focus:border-ps-blue"
             >
               <option value="boss">👔 หัวหน้า / ผู้บังคับบัญชา</option>
               <option value="professor">🎓 อาจารย์</option>
@@ -91,13 +91,13 @@ export default function SplitWorkspace({
             </select>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-base-content/70 mb-1.5">
+            <label className="block text-sm font-light text-white/70 mb-1.5">
               ระดับความทางการ
             </label>
             <select
               value={formality}
               onChange={(e) => onFormalityChange(e.target.value as FormalityLevel)}
-              className="select select-bordered w-full bg-white"
+              className="w-full bg-ps-surface-card text-white border border-white/20 rounded-sm p-3 focus:outline-none focus:border-ps-blue"
             >
               <option value="semi-formal">📝 กึ่งทางการ</option>
               <option value="formal">📜 ทางการมาก</option>
@@ -107,7 +107,7 @@ export default function SplitWorkspace({
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 mb-6">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-base-content/70 mb-1.5">
+            <label className="block text-sm font-light text-white/70 mb-1.5">
               Job Description (JD)
             </label>
             <textarea
@@ -118,26 +118,26 @@ export default function SplitWorkspace({
             />
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium text-base-content/70 mb-1.5">
+            <label className="block text-sm font-light text-white/70 mb-1.5">
               Resume / CV (PDF)
             </label>
             <div
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="h-32 border-2 border-dashed border-base-300 rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-accent hover:bg-accent/5 transition-all"
+              className="h-32 border-2 border-dashed border-white/20 rounded-sm bg-ps-surface-card flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-ps-blue transition-all"
               onClick={() => document.getElementById('pdf-input')?.click()}
             >
               {resumeFileName ? (
                 <>
                   <span className="text-2xl">📄</span>
-                  <span className="text-sm text-base-content/70">{resumeFileName}</span>
-                  <span className="text-xs text-success">อัปโหลดสำเร็จ ✓</span>
+                  <span className="text-sm text-white/70">{resumeFileName}</span>
+                  <span className="text-xs text-ps-link-dark">อัปโหลดสำเร็จ ✓</span>
                 </>
               ) : (
                 <>
-                  <span className="text-2xl">📁</span>
-                  <span className="text-sm text-base-content/50">ลากไฟล์มาวาง หรือ คลิกเพื่อเลือก</span>
-                  <span className="text-xs text-base-content/30">รองรับเฉพาะ .pdf</span>
+                  <span className="text-2xl opacity-70">📁</span>
+                  <span className="text-sm text-white/50">ลากไฟล์มาวาง หรือ คลิกเพื่อเลือก</span>
+                  <span className="text-xs text-white/30">รองรับเฉพาะ .pdf</span>
                 </>
               )}
             </div>
@@ -156,7 +156,7 @@ export default function SplitWorkspace({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left - Input Box */}
         <div>
-          <label className="block text-sm font-medium text-base-content/70 mb-1.5">
+          <label className="block text-sm font-light text-white/70 mb-1.5">
             {mode === 'refiner' ? '📝 ข้อความดิบ' : '📝 ข้อมูลเพิ่มเติม (ถ้ามี)'}
           </label>
           <textarea

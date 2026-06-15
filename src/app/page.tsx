@@ -12,8 +12,8 @@ export default function Home() {
   /* Loading state */
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-surface">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+      <div className="min-h-screen flex items-center justify-center bg-ps-canvas-dark">
+        <span className="loading loading-spinner loading-lg text-ps-blue"></span>
       </div>
     );
   }
@@ -23,7 +23,7 @@ export default function Home() {
 
   /* Dashboard หลัก */
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-ps-canvas-dark">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 py-6">
         <MainHub />
